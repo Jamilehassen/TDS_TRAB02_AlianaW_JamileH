@@ -38,3 +38,25 @@ input:not([type="checkbox"]), select, textarea {
   border: 1px solid #ccc;
   border-radius: 4px;
 }
+
+.main-content-with-cart { /* NOVO NOME DE CLASSE */
+  display: grid;
+  grid-template-columns: 2fr 1fr; /* Menu (2 partes) e Sidebar (1 parte) lado a lado */
+  gap: 40px;
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px dashed #ccc;
+}
+
+.menu-container {
+    /* Container para o menu */
+    grid-column: 1 / 2;
+}
+
+.sidebar {
+    /* Container para o carrinho e formulário */
+    grid-column: 2 / 3;
+    display: flex;
+    flex-direction: column;
+    gap: 30px; /* Espaço entre o Carrinho e o Formulário */
+}

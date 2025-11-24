@@ -1,64 +1,80 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Header from './components/Header';
 import Menu from './components/Menu';
 import ReservationForm from './components/ReservationForm';
-import useInitialCount from './hooks/useInitialCount'; // NOVO IMPORT
+import Cart from './components/Cart'; // NOVO IMPORT
+import useInitialCount from './hooks/useInitialCount'; 
 import './App.css'; 
 
 function App() {
-  // 1. CHAMA O NOVO HOOK PARA BUSCAR O VALOR INICIAL
-  const initialReservationCount = useInitialCount('http://localhost:3000/reservations');
+  // Configuração da API para contagem inicial (GET)
+  const initialReservationCountFromApi = useInitialCount('http://localhost:3000/reservations');
 
-  // 2. USA O VALOR DA API COMO ESTADO INICIAL
-  // Se for maior que 0 (fetch bem-sucedido), usa esse valor, senão usa 0.
-  const [reservationCount, setReservationCount] = useState(initialReservationCount); 
-  
-  // Requisito: useState para Variável Comum (string) - Feedback
+  // Requisito: useState para Variável Comum (number)
+  const [reservationCount, setReservationCount] = useState(0); 
   const [lastReservationName, setLastReservationName] = useState('');
+  
+  // Requisito: useState para Array/Objeto (O CARRINHO)
+  const [cartItems, setCartItems] = useState([]); 
 
   // Sincroniza o state interno com o valor inicial carregado da API
-  // Requisito: useEffect para sincronização (só roda se initialReservationCount mudar)
   useEffect(() => {
-      // Se o initialCount for carregado (e for > 0), define o estado do contador
-      if (initialReservationCount > 0 && reservationCount === 0) {
-          setReservationCount(initialReservationCount);
+      if (initialReservationCountFromApi > reservationCount) {
+          setReservationCount(initialReservationCountFromApi);
       }
-  }, [initialReservationCount]);
+  }, [initialReservationCountFromApi]);
 
+  // FUNÇÃO PRINCIPAL: Adiciona o item (objeto) ao estado do carrinho
+  // Requisito: useState com Array/Objeto e Previous State (para o array)
+  const addItemToCart = (item) => {
+    setCartItems((prevItems) => [
+      ...prevItems,
+      // Adiciona o item (Objeto) ao array
+      { ...item, id: item.id + '-' + Date.now() } // Garante uma key única
+    ]);
+    console.log(`Item "${item.name}" adicionado ao carrinho.`);
+  };
 
-  // Propriedade Função: passada para o formulário
+  // Funções de Evento (continuam as mesmas)
   const handleReservationSubmit = (name) => {
-    // Uso de Previous State para garantir o valor correto
     setReservationCount(prevCount => prevCount + 1); 
     setLastReservationName(name); 
   };
   
-  // ... resto do código permanece o mesmo
+  // Esta função agora está obsoleta pois usaremos addItemToCart
+  // const handleAddItem = (dishName) => { 
+  //   console.log(`Item "${dishName}" adicionado ao pedido. (Simulando adição ao carrinho)`);
+  // }
   
-  // Interpolação de Variável Comum (lastReservationName)
+  // Interpolação de Variável Comum
   const feedbackMessage = lastReservationName 
     ? `✅ Última reserva: ${lastReservationName}. Total: ${reservationCount} reservas.`
-    : `Total de reservas carregadas: ${reservationCount}.`; // MENSAGEM AJUSTADA
+    : `Total de reservas carregadas: ${reservationCount}.`; 
 
   return (
     <div className="restaurant-app">
       {/* Componente Header.jsx */}
       <Header 
-        restaurantName="Sabor Divino" // Propriedade Comum (string)
-        reservationCount={reservationCount} // Propriedade State (number)
+        restaurantName="Sabor Divino" 
+        reservationCount={reservationCount} 
       />
 
-      {/* Renderização Condicional: Exibe feedback */}
       <p style={{ margin: '15px 0', fontWeight: 'bold', color: reservationCount > 0 ? 'green' : 'gray' }}>
         {feedbackMessage}
       </p>
 
-      <div className="main-content">
-        {/* Componente Menu.jsx */}
-        <Menu onAddItem={handleAddItem} />
+      <div className="main-content-with-cart"> {/* Mudança de classe para melhor layout */}
         
-        {/* Componente ReservationForm.jsx */}
-        <ReservationForm onReservationSubmit={handleReservationSubmit} />
+        <div className="menu-container">
+          {/* Componente Menu.jsx recebe o callback para adicionar ao carrinho */}
+          <Menu onAddItem={addItemToCart} /> 
+        </div>
+        
+        <div className="sidebar">
+            <Cart cartItems={cartItems} /> {/* NOVO COMPONENTE: Carrinho */}
+            <ReservationForm onReservationSubmit={handleReservationSubmit} /> 
+        </div>
+
       </div>
       
       <p className="read-the-docs">
