@@ -1,24 +1,41 @@
-/* Requisito: Pelo menos 1 CSS Modules */
 .itemCard {
-  border: 1px solid #a52a2a; /* Cor do Restaurante */
-  padding: 15px;
-  border-radius: 8px;
+  /* Novo estilo de card mais limpo e moderno */
+  border: 1px solid var(--border-color); 
+  padding: 20px;
+  border-radius: 12px;
   text-align: left;
-  background-color: #fefefe;
+  background-color: var(--bg-light);
   display: flex;
   gap: 15px;
+  align-items: center; /* Alinha verticalmente */
+  transition: box-shadow 0.3s;
+}
+
+.itemCard:hover {
+    box-shadow: 0 6px 15px rgba(0,0,0,0.1); /* Efeito ao passar o mouse */
 }
 
 .itemCard h3 {
-  color: #a52a2a;
+  color: var(--text-dark);
   margin-top: 0;
+  margin-bottom: 5px;
+}
+
+.itemInfo {
+    flex-grow: 1;
+}
+
+.itemCard img {
+    border-radius: 8px;
 }
 
 .specialBadge {
-  color: #fff;
-  background-color: #ff6347; 
+  color: var(--text-light);
+  background-color: var(--accent-color); /* Cor de destaque */
   padding: 4px 8px;
-  border-radius: 4px;
-  font-size: 0.8em;
+  border-radius: 6px;
+  font-size: 0.85em;
   font-weight: bold;
+  display: inline-block;
+  margin-bottom: 10px;
 }

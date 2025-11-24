@@ -62,23 +62,25 @@ function App() {
       <p style={{ margin: '15px 0', fontWeight: 'bold', color: reservationCount > 0 ? 'green' : 'gray' }}>
         {feedbackMessage}
       </p>
-
-      <div className="main-content-with-cart"> {/* Mudança de classe para melhor layout */}
-        
+      
+      <div className="divider"></div> {/* NOVO DIVIDER */}
+      
+      <div className="main-content-with-cart">
+        {/* Componente Menu.jsx */}
         <div className="menu-container">
-          {/* Componente Menu.jsx recebe o callback para adicionar ao carrinho */}
           <Menu onAddItem={addItemToCart} /> 
         </div>
         
+        {/* Componentes Carrinho e Reserva na Sidebar */}
         <div className="sidebar">
-            <Cart cartItems={cartItems} /> {/* NOVO COMPONENTE: Carrinho */}
+            <Cart cartItems={cartItems} /> 
             <ReservationForm onReservationSubmit={handleReservationSubmit} /> 
         </div>
 
       </div>
       
       <p className="read-the-docs">
-        Desenvolvido com React e Vite (TDS - UNIOESTE)
+        Aliana Wakassugui e Jamile Hassen
       </p>
     </div>
   );

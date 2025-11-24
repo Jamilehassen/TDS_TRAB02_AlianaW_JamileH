@@ -66,6 +66,17 @@
       "time": "21:00",
       "acceptPromo": false,
       "comment": ""
+    },
+    {
+      "id": "81bf",
+      "name": "Regina Angela",
+      "email": "regina@gmail.com",
+      "phone": "12996163915",
+      "guests": "8",
+      "date": "2025-12-03",
+      "time": "20:00",
+      "acceptPromo": true,
+      "comment": "Sou alérgica a Lactose"
     }
   ]
 }
