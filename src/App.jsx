@@ -26,21 +26,22 @@ function App() {
 
   // FUNÇÃO PRINCIPAL: Adiciona o item (objeto) ao estado do carrinho
   // Requisito: useState com Array/Objeto e Previous State (para o array)
-  const addItemToCart = (item) => {
-    setCartItems((prevItems) => [
-      ...prevItems,
-      // Adiciona o item (Objeto) ao array
-      { ...item, id: item.id + '-' + Date.now() } // Garante uma key única
-    ]);
-    console.log(`Item "${item.name}" adicionado ao carrinho.`);
-  };
+    const addItemToCart = (item) => {
+      setCartItems((prevItems) => [
+        ...prevItems,
+        // CORREÇÃO (Erro 2): Usar 'uniqueId' para corresponder ao filtro de remoção.
+        { ...item, uniqueId: item.id + '-' + Date.now() } 
+      ]);
+      console.log(`Item "${item.name}" adicionado ao carrinho.`);
+    };
 
-  const removeItemFromCart = (uniqueIdToRemove) => {
-    setCartItems((prevItems) => {
-        return prevItems.filter(item => item.uniqueId !== uniqueIdToRemove);
-    });
-    console.log(`Item removido do carrinho. ID: ${uniqueIdToRemove}`);
-  };
+    const removeItemFromCart = (uniqueIdToRemove) => {
+      setCartItems((prevItems) => {
+          // Usa o uniqueId que foi criado na adição
+          return prevItems.filter(item => item.uniqueId !== uniqueIdToRemove);
+      });
+      console.log(`Item removido do carrinho. ID: ${uniqueIdToRemove}`);
+    };
 
   // Funções de Evento (continuam as mesmas)
   const handleReservationSubmit = (name) => {
@@ -80,8 +81,10 @@ function App() {
         
         {/* Componentes Carrinho e Reserva na Sidebar */}
         <div className="sidebar">
-            <Cart cartItems={cartItems} /> 
-            <Cart onRemoveItem={removeItemFromCart} />
+            <Cart 
+                cartItems={cartItems} 
+                onRemoveItem={removeItemFromCart}
+            />
             <ReservationForm onReservationSubmit={handleReservationSubmit} /> 
         </div>
 
