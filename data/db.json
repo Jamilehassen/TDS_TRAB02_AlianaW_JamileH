@@ -1,26 +1,60 @@
 {
   "menu": [
     {
-      "id": 1,
+      "id": "1",
       "name": "Moqueca de Camarão",
       "description": "Camarões frescos cozidos em leite de coco, azeite de dendê e pimentões.",
-      "price": 65.50,
+      "price": 65.5,
       "isSpecial": true
     },
     {
-      "id": 2,
+      "id": "2",
       "name": "Filé Mignon ao Molho Madeira",
       "description": "Tiras de filé mignon grelhadas com molho de vinho e cogumelos.",
-      "price": 72.90,
+      "price": 72.9,
       "isSpecial": false
     },
     {
-      "id": 3,
+      "id": "3",
       "name": "Salada Vegana com Quinoa",
       "description": "Mix de folhas, quinoa, tomate cereja, pepino e molho de mostarda e mel.",
-      "price": 45.00,
+      "price": 45,
       "isSpecial": true
     }
   ],
-  "reservations": []
+  "reservations": [
+    {
+      "id": "200d",
+      "name": "Jamile Hassen Sá",
+      "email": "jamilehassensa@gmail.com",
+      "phone": "12996163910",
+      "guests": "4",
+      "date": "2025-11-25",
+      "time": "20:00",
+      "acceptPromo": false,
+      "comment": "Uma cadeira para bebê."
+    },
+    {
+      "id": "0ca9",
+      "name": "Aliana Wakassugui",
+      "email": "aliana@gmail.com",
+      "phone": "12996163911",
+      "guests": "4",
+      "date": "2025-11-25",
+      "time": "19:00",
+      "acceptPromo": true,
+      "comment": ""
+    },
+    {
+      "id": "f498",
+      "name": "Carlos Ribeiro",
+      "email": "carlos.ribeiro@example.com",
+      "phone": "12996163912",
+      "guests": "10",
+      "date": "2025-12-06",
+      "time": "21:00",
+      "acceptPromo": false,
+      "comment": "Teste de reserva"
+    }
+  ]
 }

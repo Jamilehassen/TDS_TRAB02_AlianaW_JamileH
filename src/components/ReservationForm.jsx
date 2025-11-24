@@ -1,85 +1,96 @@
 import { useState } from 'react';
 
-/**
- * Componente de formulário para reservas com 5+ tipos de input e requisição POST.
- */
 function ReservationForm({ onReservationSubmit }) {
-  // useState para Objeto para gerenciar todos os inputs [cite: 21]
+  // useState para Objeto para gerenciar todos os inputs
   const [formData, setFormData] = useState({
-    name: '',       // Input: text
-    email: '',      // Input: email
-    phone: '',      // Input: tel
-    guests: 1,      // Input: number
-    date: '',       // Input: date
-    time: '19:00',  // Input: select
-    acceptPromo: false, // Input: checkbox
-    comment: ''     // Input: textarea
+    name: '',       
+    email: '',      
+    phone: '',      
+    guests: 1,      
+    date: '',       
+    time: '19:00',  
+    acceptPromo: false, 
+    comment: ''     
   });
 
-  // useState para Classe CSS Dinâmica (Comum/Boolean) [cite: 25, 26]
+  // NOVO ESTADO: Armazena o nome da última reserva confirmada (para o feedback local)
+  const [confirmedName, setConfirmedName] = useState('');
+
+  // useState para Classe CSS Dinâmica (Comum/Boolean)
   const [isSubmitted, setIsSubmitted] = useState(false);
   const reservationsApiUrl = 'http://localhost:3000/reservations';
 
-  // Evento de Formulário: onChange para todos os inputs [cite: 18, 675]
+  // Evento de Formulário: onChange para todos os inputs
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
-    // Manipulação de valores simplificada [cite: 681]
     setFormData(prev => ({
       ...prev,
       [name]: type === 'checkbox' ? checked : value
     }));
   };
 
-  // Evento de Formulário: onSubmit (com preventDefault) [cite: 18, 695, 696]
+  // Evento de Formulário: onSubmit (com preventDefault)
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // 1. Simulação de Requisição POST (Adicionando dados) [cite: 29, 834]
+    // Requisito: Executar código JavaScript no JSX (para logging e estado)
+    const nameToConfirm = formData.name; // CAPTURA O NOME ANTES DA LIMPEZA
+    
+    // Desabilita o botão para evitar cliques duplicados durante o envio
+    setIsSubmitted(true); 
+
     try {
       const res = await fetch(reservationsApiUrl, {
-        method: "POST", // Método POST [cite: 858]
+        method: "POST", 
         headers: {
-          "Content-Type": "application/json" // Cabeçalhos [cite: 861]
+          "Content-Type": "application/json" 
         },
-        body: JSON.stringify(formData) // Corpo como JSON string [cite: 866]
+        body: JSON.stringify(formData) 
       });
 
       if (!res.ok) {
          throw new Error('Falha ao reservar.');
       }
 
-      // 2. Executa a função Prop no sucesso (Propriedade Função) [cite: 22, 576]
-      onReservationSubmit(formData.name);
+      // 1. ATUALIZA ESTADOS
+      // Executa a função Prop no sucesso (Propriedade Função)
+      onReservationSubmit(nameToConfirm); 
       
-      // 3. Ativa o CSS Dinâmico
-      setIsSubmitted(true);
+      // Armazena o nome capturado para o feedback local
+      setConfirmedName(nameToConfirm);
       
-      // 4. Resetar o formulário após o envio [cite: 740]
+      // 2. LIMPA O FORMULÁRIO (useState Objeto)
       setFormData({
         name: '', email: '', phone: '', guests: 1, date: '', time: '19:00', acceptPromo: false, comment: ''
       });
 
+      // 3. REABILITA O BOTÃO APÓS UM PEQUENO DELAY (para nova submissão)
+      // Uso de JS no JSX (setTimeout é código JavaScript)
+      setTimeout(() => {
+          setIsSubmitted(false);
+          setConfirmedName(''); // Limpa o feedback após a reabilitação
+      }, 3000); // 3 segundos para o usuário ler a confirmação
+
     } catch (error) {
       console.error('Erro ao enviar reserva:', error);
       alert('Erro ao processar reserva. Tente novamente.');
-      setIsSubmitted(false);
+      setIsSubmitted(false); // Reabilita o botão em caso de erro
     }
   };
 
-  // Evento de Teclado: onKeyDown (exemplo de evento diferente) [cite: 18]
+  // Evento de Teclado: onKeyDown (exemplo de evento diferente)
   const handleKeyDown = (e) => {
     if (e.key === 'Enter') {
       console.log('Tecla Enter pressionada. O formulário será enviado se o foco estiver no botão.');
     }
   };
 
-  // Requisito: Classe CSS Dinâmica [cite: 26, 624]
-  const buttonClassName = isSubmitted ? 'btn-success' : 'btn-submit';
+  const buttonClassName = confirmedName ? 'btn-success' : 'btn-submit';
   
-  // Requisito: CSS Dinâmico Inline [cite: 25, 617]
+  // CSS Dinâmico Inline
   const buttonStyle = {
     padding: '10px 20px',
-    backgroundColor: isSubmitted ? 'green' : '#a52a2a', 
+    backgroundColor: confirmedName ? 'green' : '#a52a2a', 
     color: 'white',
     border: 'none',
     borderRadius: '5px',
@@ -91,10 +102,7 @@ function ReservationForm({ onReservationSubmit }) {
     <section>
       <h2>Reserve sua Mesa</h2>
       <form onSubmit={handleSubmit} style={{ display: 'grid', gap: '10px' }}>
-        
-        {/* Formulário: 5+ Tipos de Input (text, email, number, select, checkbox, tel, textarea) [cite: 24] */}
-        
-        {/* Controlled Input (value={formData.name}) [cite: 710, 713] */}
+        {/* ... Inputs do formulário aqui ... */}
         <label htmlFor="name">Nome Completo:</label>
         <input type="text" id="name" name="name" value={formData.name} onChange={handleChange} required />
         
@@ -117,7 +125,6 @@ function ReservationForm({ onReservationSubmit }) {
           <option value="21:00">21:00</option>
         </select>
 
-        {/* Requisito: Input Textarea [cite: 732] */}
         <label htmlFor="comment">Observações:</label>
         <textarea id="comment" name="comment" value={formData.comment} onChange={handleChange}></textarea>
 
@@ -126,19 +133,19 @@ function ReservationForm({ onReservationSubmit }) {
           <label htmlFor="acceptPromo" style={{ marginLeft: '10px', display: 'inline' }}> Aceito receber promoções.</label>
         </div>
         
-        {/* Botão com Classe CSS Dinâmica e Estilo Dinâmico */}
+        {/* Botão agora desabilita quando a submissão está a ocorrer */}
         <button 
           type="submit" 
           className={buttonClassName} 
           style={buttonStyle}
-          disabled={isSubmitted}
+          disabled={isSubmitted} 
         >
-          {/* Renderização Condicional (if ternário) [cite: 449] */}
-          {isSubmitted ? 'Reserva Confirmada!' : 'Confirmar Reserva'}
+          {confirmedName ? 'Reserva Confirmada!' : (isSubmitted ? 'Enviando...' : 'Confirmar Reserva')}
         </button>
       </form>
-      {/* Interpolação de Objeto (formData) e Variável Comum (isSubmitted) [cite: 17] */}
-      {isSubmitted && <p style={{ color: 'green', fontWeight: 'bold' }}>Obrigado, {formData.name}! Sua reserva foi enviada.</p>}
+      
+      {/* O feedback local agora usa confirmedName */}
+      {confirmedName && <p style={{ color: 'green', fontWeight: 'bold' }}>Obrigado, {confirmedName}! Sua reserva foi enviada.</p>}
     </section>
   );
 }
