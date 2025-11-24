@@ -35,6 +35,13 @@ function App() {
     console.log(`Item "${item.name}" adicionado ao carrinho.`);
   };
 
+  const removeItemFromCart = (uniqueIdToRemove) => {
+    setCartItems((prevItems) => {
+        return prevItems.filter(item => item.uniqueId !== uniqueIdToRemove);
+    });
+    console.log(`Item removido do carrinho. ID: ${uniqueIdToRemove}`);
+  };
+
   // Funções de Evento (continuam as mesmas)
   const handleReservationSubmit = (name) => {
     setReservationCount(prevCount => prevCount + 1); 
@@ -74,6 +81,7 @@ function App() {
         {/* Componentes Carrinho e Reserva na Sidebar */}
         <div className="sidebar">
             <Cart cartItems={cartItems} /> 
+            <Cart onRemoveItem={removeItemFromCart} />
             <ReservationForm onReservationSubmit={handleReservationSubmit} /> 
         </div>
 
