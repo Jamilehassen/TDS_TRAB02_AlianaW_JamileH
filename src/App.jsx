@@ -63,7 +63,7 @@ function App() {
     <div className="restaurant-app">
       {/* Componente Header.jsx */}
       <Header 
-        restaurantName="Sabor Divino" 
+        restaurantName="JALI" 
         reservationCount={reservationCount} 
       />
 

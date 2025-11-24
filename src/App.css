@@ -1,12 +1,20 @@
-/* src/App.css - Tema Clean Elegante e Responsividade Final */
+/* src/App.css - Versão Final Limpa e Responsiva */
 
 :root {
-  --primary-color: #900c3f; /* Borgonha/Vinho (Elegante) */
-  --accent-color: #ffc300; /* Dourado/Amarelo (Destaque) */
+  --primary-color: #900c3f; /* Borgonha/Vinho */
+  --accent-color: #ffc300; /* Dourado/Amarelo */
   --bg-main: #fcfcfc; /* Fundo limpo do app */
-  --card-bg: #ffffff; /* Fundo dos cards */
+  --card-bg: #ffffff;
   --text-dark: #333333;
   --border-color: #eeeeee;
+  --text-light: #ffffff;
+}
+
+/* REGRA CRÍTICA 1: Evita o scroll horizontal em excesso */
+html, body {
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
 }
 
 body {
@@ -15,37 +23,60 @@ body {
 }
 
 .restaurant-app {
-  width: 100%; /* Ocupa toda a largura do #root */
-  padding: 30px 20px;
-  max-width: 1280px;
-  margin: 0 auto;
-}
-
-h1 {
-    color: var(--primary-color);
-    font-size: 3.5em;
-    margin-bottom: 5px;
-}
-h2, h3 {
-    color: var(--primary-color);
-}
-
-/* Linha Divisória Customizada */
-.divider {
-    height: 1px;
-    background-color: var(--primary-color);
-    margin: 20px 0 40px;
-    opacity: 0.3;
+    width: 100%; 
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 20px 40px; /* Padding apenas lateral e inferior, o header faz o topo */
+    box-sizing: border-box;
 }
 
 /* ------------------------------------------- */
-/* LAYOUT PRINCIPAL (Responsividade) */
+/* HEADER / NAVBAR */
+/* ------------------------------------------- */
+
+.navbar {
+    background-color: var(--primary-color); 
+    padding-bottom: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    margin: 0 -20px 30px; /* Ajuste CRÍTICO: Usa margem negativa para 'sangrar' e ocupar 100% da viewport */
+}
+
+.header-content {
+    max-width: 1280px; 
+    margin: 0 auto;
+    padding: 20px 20px 0;
+    text-align: center;
+    color: var(--card-bg);
+}
+
+.header-content h1 {
+    color: var(--card-bg);
+    font-size: 3.5em;
+    margin: 0 0 10px 0;
+}
+
+.header-divider {
+    height: 1px;
+    background-color: rgba(255, 255, 255, 0.4); 
+    width: 100%;
+    max-width: 1280px;
+    margin: 10px auto 0;
+}
+
+.reservation-status p {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 1.1em;
+    margin: 0;
+}
+
+/* ------------------------------------------- */
+/* LAYOUT PRINCIPAL (GRID) */
 /* ------------------------------------------- */
 
 .main-content-with-cart {
-  display: grid;
-  grid-template-columns: 2fr 1.2fr; 
-  gap: 30px;
+    display: grid;
+    grid-template-columns: 2fr 1.2fr; 
+    gap: 30px;
 }
 
 .sidebar {
@@ -54,34 +85,16 @@ h2, h3 {
     gap: 30px; 
 }
 
-/* RESPONSIVIDADE: MUDANÇA PARA LAYOUT DE COLUNA (Mobile/Tablet) */
-@media (max-width: 1000px) {
-    .main-content-with-cart {
-        grid-template-columns: 1fr; 
-        gap: 30px;
-    }
-    .sidebar {
-        order: -1; 
-    }
-}
-
 /* ------------------------------------------- */
-/* ESTILOS DE COMPONENTES E CARDS */
+/* COMPONENTES / CARDS */
 /* ------------------------------------------- */
 
 section {
-  padding: 25px;
-  border: 1px solid var(--border-color);
-  border-radius: 12px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.08); /* Sombra mais visível */
-  background-color: var(--card-bg);
-}
-
-.menu-container section {
-    background-color: transparent;
-    border: none;
-    box-shadow: none;
-    padding: 0;
+    padding: 25px;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    background-color: var(--card-bg);
 }
 
 .menu-grid {
@@ -90,22 +103,47 @@ section {
     gap: 20px;
 }
 
-@media (max-width: 650px) {
-    .menu-grid {
-        grid-template-columns: 1fr; 
+h2, h3 {
+    color: var(--primary-color);
+}
+
+/* ESTILOS DE BOTÕES CORRIGIDOS */
+button {
+    border: none;
+    padding: 0.6em 1.2em;
+    font-size: 1em;
+    font-weight: 500;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    color: var(--text-light);
+    background-color: #db2567; /* Cor específica dos botões */
+}
+button:hover {
+    background-color: #d6789b;
+}
+
+
+/* ------------------------------------------- */
+/* RESPONSIVIDADE (MEDIA QUERIES) */
+/* ------------------------------------------- */
+
+/* REGRA CRÍTICA 2: MUDAR PARA COLUNA NUM BREAKPOINT MAIS AMPLO (ex: 1100px) */
+@media (max-width: 1100px) {
+    .main-content-with-cart {
+        grid-template-columns: 1fr; /* Coluna única para tablets e notebooks menores */
+        gap: 30px;
+    }
+    .sidebar {
+        order: -1; /* Carrinho no topo */
     }
 }
 
-/* Estilo Carrinho (Para a seção 'Total de reservas') */
-.read-the-docs {
-    color: #666;
-    margin-top: 30px;
-}
-
-/* Estilo do botão de Adicionar Item no Carrinho */
-button {
-  background-color: var(--primary-color);
-}
-button:hover {
-  background-color: #6a092d; 
+@media (max-width: 768px) {
+    .header-content h1 {
+        font-size: 2.5em; 
+    }
+    .menu-grid {
+        grid-template-columns: 1fr; 
+    }
 }
