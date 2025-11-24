@@ -1,0 +1,26 @@
+{
+  "menu": [
+    {
+      "id": 1,
+      "name": "Moqueca de Camarão",
+      "description": "Camarões frescos cozidos em leite de coco, azeite de dendê e pimentões.",
+      "price": 65.50,
+      "isSpecial": true
+    },
+    {
+      "id": 2,
+      "name": "Filé Mignon ao Molho Madeira",
+      "description": "Tiras de filé mignon grelhadas com molho de vinho e cogumelos.",
+      "price": 72.90,
+      "isSpecial": false
+    },
+    {
+      "id": 3,
+      "name": "Salada Vegana com Quinoa",
+      "description": "Mix de folhas, quinoa, tomate cereja, pepino e molho de mostarda e mel.",
+      "price": 45.00,
+      "isSpecial": true
+    }
+  ],
+  "reservations": []
+}

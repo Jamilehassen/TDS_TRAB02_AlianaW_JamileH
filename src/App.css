@@ -1,42 +1,40 @@
-#root {
-  max-width: 1280px;
+/* CSS de Componente (não scoped) [cite: 605] */
+.restaurant-app {
+  max-width: 1200px;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.main-content {
+  display: grid;
+  grid-template-columns: 2fr 1fr; 
+  gap: 40px;
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px dashed #ccc;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* Estilos de inputs para formulário */
+section {
+  padding: 20px;
+  border: 1px solid #eee;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+label {
+  display: block;
+  text-align: left;
+  margin-bottom: 5px;
+  font-weight: bold;
 }
 
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
+input:not([type="checkbox"]), select, textarea {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }

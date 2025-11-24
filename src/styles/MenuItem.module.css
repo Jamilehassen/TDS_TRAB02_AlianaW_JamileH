@@ -1,0 +1,24 @@
+/* Requisito: Pelo menos 1 CSS Modules */
+.itemCard {
+  border: 1px solid #a52a2a; /* Cor do Restaurante */
+  padding: 15px;
+  border-radius: 8px;
+  text-align: left;
+  background-color: #fefefe;
+  display: flex;
+  gap: 15px;
+}
+
+.itemCard h3 {
+  color: #a52a2a;
+  margin-top: 0;
+}
+
+.specialBadge {
+  color: #fff;
+  background-color: #ff6347; 
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.8em;
+  font-weight: bold;
+}
