@@ -3,6 +3,7 @@ import MenuItem from './MenuItem';
 import MoquecaImage from '../assets/Moqueca.jpg';
 import MignonImage from '../assets/Mignon.jpg';
 import SaladaImage from '../assets/Salada.jpg';
+import styles from './Cardapio.module.css';
 
 
 /**
@@ -30,7 +31,7 @@ function Menu({ onAddItem }) {
   return (
     <section>
       <h2>Nosso Menu</h2>
-      <div className="menu-grid">
+      <div className={styles.card} >
         {menuItems && menuItems.map((item) => (
           <MenuItem 
             key={item.id} 
