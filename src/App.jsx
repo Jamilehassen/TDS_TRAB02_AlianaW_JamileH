@@ -2,97 +2,92 @@ import { useState, useEffect } from 'react';
 import Header from './components/Header';
 import Menu from './components/Menu';
 import ReservationForm from './components/ReservationForm';
-import Cart from './components/Cart'; // NOVO IMPORT
+import Cart from './components/Cart'; 
 import useInitialCount from './hooks/useInitialCount'; 
 import './App.css'; 
 
 function App() {
-  // Configuração da API para contagem inicial (GET)
   const initialReservationCountFromApi = useInitialCount('http://localhost:3000/reservations');
 
-  // Requisito: useState para Variável Comum (number)
+  // useState: Variável Comum (Number) e Objeto/Array
   const [reservationCount, setReservationCount] = useState(0); 
   const [lastReservationName, setLastReservationName] = useState('');
-  
-  // Requisito: useState para Array/Objeto (O CARRINHO)
   const [cartItems, setCartItems] = useState([]); 
 
-  // Sincroniza o state interno com o valor inicial carregado da API
   useEffect(() => {
       if (initialReservationCountFromApi > reservationCount) {
           setReservationCount(initialReservationCountFromApi);
       }
   }, [initialReservationCountFromApi]);
 
-  // FUNÇÃO PRINCIPAL: Adiciona o item (objeto) ao estado do carrinho
-  // Requisito: useState com Array/Objeto e Previous State (para o array)
-    const addItemToCart = (item) => {
-      setCartItems((prevItems) => [
-        ...prevItems,
-        // CORREÇÃO (Erro 2): Usar 'uniqueId' para corresponder ao filtro de remoção.
-        { ...item, uniqueId: item.id + '-' + Date.now() } 
-      ]);
-      console.log(`Item "${item.name}" adicionado ao carrinho.`);
-    };
+  // Função para adicionar item (Uso de Previous State) [cite: 390, 394]
+  const addItemToCart = (item) => {
+    setCartItems((prevItems) => [
+      ...prevItems,
+      { ...item, uniqueId: item.id + '-' + Date.now() } 
+    ]);
+  };
 
-    const removeItemFromCart = (uniqueIdToRemove) => {
-      setCartItems((prevItems) => {
-          // Usa o uniqueId que foi criado na adição
-          return prevItems.filter(item => item.uniqueId !== uniqueIdToRemove);
-      });
-      console.log(`Item removido do carrinho. ID: ${uniqueIdToRemove}`);
-    };
+  const removeItemFromCart = (uniqueIdToRemove) => {
+    setCartItems((prevItems) => prevItems.filter(item => item.uniqueId !== uniqueIdToRemove));
+  };
 
-  // Funções de Evento (continuam as mesmas)
   const handleReservationSubmit = (name) => {
     setReservationCount(prevCount => prevCount + 1); 
     setLastReservationName(name); 
   };
   
-  // Esta função agora está obsoleta pois usaremos addItemToCart
-  // const handleAddItem = (dishName) => { 
-  //   console.log(`Item "${dishName}" adicionado ao pedido. (Simulando adição ao carrinho)`);
-  // }
-  
-  // Interpolação de Variável Comum
-  const feedbackMessage = lastReservationName 
-    ? `✅ Última reserva: ${lastReservationName}. Total: ${reservationCount} reservas.`
-    : `Total de reservas carregadas: ${reservationCount}.`; 
+  // REQUISITO: Interpolar Array (Transformando array de objetos em lista de nomes) [cite: 17, 258]
+  const listaNomesItens = cartItems.map(item => item.name).join(", ");
 
   return (
-    <div className="restaurant-app">
-      {/* Componente Header.jsx */}
-      <Header 
-        restaurantName="JALI" 
-        reservationCount={reservationCount} 
-      />
+    // REQUISITO: Bootstrap (Classe 'container') 
+    <div className="container mt-4 restaurant-app">
+      
+      {/* REQUISITO: Evento de Mouse (onMouseEnter)  */}
+      <div onMouseEnter={() => console.log("Usuário navegando pelo cabeçalho")}>
+        <Header 
+          restaurantName="JALI" 
+          reservationCount={reservationCount} 
+        />
+      </div>
 
-      <p style={{ margin: '15px 0', fontWeight: 'bold', color: reservationCount > 0 ? 'green' : 'gray' }}>
-        {feedbackMessage}
+      {/* CSS Dinâmico Inline baseado em condição [cite: 25, 600] */}
+      <p style={{ 
+        margin: '15px 0', 
+        fontWeight: 'bold', 
+        color: reservationCount > 0 ? 'green' : 'gray' 
+      }}>
+        {lastReservationName 
+          ? `Última reserva: ${lastReservationName}. Total: ${reservationCount}.`
+          : `Total de reservas: ${reservationCount}.`}
       </p>
+
+      {/* REQUISITO: Interpolar Array no JSX  */}
+      {cartItems.length > 0 && (
+        <div className="alert alert-secondary">
+          <strong>Itens no pedido:</strong> {listaNomesItens}
+        </div>
+      )}
       
-      <div className="divider"></div> {/* NOVO DIVIDER */}
-      
-      <div className="main-content-with-cart">
-        {/* Componente Menu.jsx */}
-        <div className="menu-container">
+      <div className="row"> {/* Bootstrap Grid  */}
+        <div className="col-md-8">
           <Menu onAddItem={addItemToCart} /> 
         </div>
         
-        {/* Componentes Carrinho e Reserva na Sidebar */}
-        <div className="sidebar">
+        <div className="col-md-4 sidebar">
+            {/* REQUISITO: Passar Variável de State como Prop  */}
             <Cart 
                 cartItems={cartItems} 
                 onRemoveItem={removeItemFromCart}
             />
             <ReservationForm onReservationSubmit={handleReservationSubmit} /> 
         </div>
-
       </div>
       
-      <p className="read-the-docs">
-        Aliana Wakassugui e Jamile Hassen
-      </p>
+      <footer className="mt-5 py-3 text-center border-top">
+        <p>Aliana Wakassugui e Jamile Hassen - Unioeste 2026</p>
+      </footer>
     </div>
   );
 }

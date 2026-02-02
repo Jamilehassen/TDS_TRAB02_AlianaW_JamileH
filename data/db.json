@@ -77,6 +77,17 @@
       "time": "20:00",
       "acceptPromo": true,
       "comment": "Sou alérgica a Lactose"
+    },
+    {
+      "id": "321a",
+      "name": "Samuel Pereira",
+      "email": "samuel@gmail.com",
+      "phone": "12999999940",
+      "guests": "8",
+      "date": "2026-02-12",
+      "time": "20:00",
+      "acceptPromo": false,
+      "comment": ""
     }
   ]
 }

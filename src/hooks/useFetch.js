@@ -1,51 +1,43 @@
 import { useState, useEffect } from 'react';
 
-/**
- * Custom Hook para realizar requisições HTTP GET.
- * Implementa useEffect e Fetch API com tratamento de erros.
- * @param {string} url - O endpoint da API (ex: http://localhost:3000/menu).
- * @returns {{data: Array | null, isLoading: boolean, error: string | null}}
- */
-function useFetch(url) {
-  // useState para o array/objeto dos dados
-  const [data, setData] = useState(null); 
-  // useState para estado comum de carregamento
-  const [isLoading, setIsLoading] = useState(true); 
-  // useState para estado comum de erro (Tratamento de Erro)
-  const [error, setError] = useState(null); 
+// REQUISITO: Custom hook para realização de requisições 
+export const useFetch = (url) => {
+  // Estados para gerenciar os dados, o carregamento e possíveis erros [cite: 897]
+  const [data, setData] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
 
-  // useEffect para controle do ciclo de vida da requisição, ativado pelo URL
   useEffect(() => {
+    // REQUISITO: Função assíncrona para busca de dados [cite: 804, 899]
     const fetchData = async () => {
-      setIsLoading(true);
-      setError(null);
+      setIsLoading(true); // Inicia o estado de carregamento
       
       try {
-        // Uso da Fetch API [cite: 32, 814]
-        const response = await fetch(url);
-        
-        if (!response.ok) {
-          throw new Error(`Erro HTTP: status ${response.status}`);
+        // REQUISITO: Uso da Fetch API [cite: 32, 805, 901]
+        const res = await fetch(url);
+
+        // Verifica se a resposta foi bem-sucedida antes de converter
+        if (!res.ok) {
+          throw new Error("Erro ao carregar os dados");
         }
-        
-        // Transformando a resposta JSON em objeto JS
-        const json = await response.json();
-        
-        // Atende ao useState (Array/Objeto)
-        setData(json); 
-      } catch (err) {
-        // Tratamento de Erro
-        setError('Erro ao carregar dados: ' + err.message);
+
+        const json = await res.json(); // [cite: 809, 903]
+        setData(json); // Armazena os dados resgatados [cite: 810, 904]
+        setError(null); // Limpa qualquer erro anterior
+      } catch (error) {
+        // REQUISITO: Tratamento de erros com catch [cite: 892, 905]
+        console.error(error.message);
+        setError("Houve um erro ao carregar os dados!"); // [cite: 906]
       } finally {
-        setIsLoading(false);
+        setIsLoading(false); // Finaliza o estado de carregamento independente do resultado
       }
     };
 
     fetchData();
-  }, [url]); // Array de dependências: recarrega se a URL mudar
+  }, [url]); // useEffect depende da URL [cite: 886, 910]
 
-  // Retorna os dados para serem usados no componente
+  // REQUISITO: Retornar os estados para uso no componente [cite: 890, 911]
   return { data, isLoading, error };
-}
+};
 
 export default useFetch;
