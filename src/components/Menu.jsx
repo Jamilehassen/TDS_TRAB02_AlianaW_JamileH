@@ -3,7 +3,7 @@ import MenuItem from './MenuItem';
 import MoquecaImage from '../assets/Moqueca.jpg';
 import MignonImage from '../assets/Mignon.jpg';
 import SaladaImage from '../assets/Salada.jpg';
-import styles from './Cardapio.module.css';
+import styles from '../styles/Cardapio.module.css';
 
 
 /**
