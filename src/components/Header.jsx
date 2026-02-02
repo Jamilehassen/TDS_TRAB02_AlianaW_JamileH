@@ -1,21 +1,23 @@
-// src/components/Header.jsx
-
+// Recebe os dados do componente pai (App.jsx) via Props
 function Header({ restaurantName, reservationCount }) {
   return (
-    // Usa a classe 'navbar' para estilização centralizada no CSS
-    <div className="navbar"> 
-      <header className="header-content">
-        <h1>{restaurantName}</h1> 
-        <div className="reservation-status">
-          {/* A contagem não faz parte do navbar principal, mas é um status */}
-          <p>Reservas Confirmadas: 
-            <strong> {reservationCount}</strong> 
-          </p>
+    // Bootstrap para estilização de cabeçalho
+    <header className="p-4 mb-4 border-bottom bg-white shadow-sm rounded">
+      <div className="d-flex justify-content-between align-items-center">
+        
+        {/* Interpolar variável comum (String)*/}
+        <h1 className="h2 m-0 text-danger fw-bold" style={{ letterSpacing: '1px' }}>
+          {restaurantName}
+        </h1>
+
+        {/* Executar código Javascript no JSX */}
+        <div className="badge rounded-pill bg-danger p-2 px-3">
+          {/* Interpolar variável state (Number)*/}
+          Reservas Ativas: {reservationCount}
         </div>
-      </header>
-      {/* Esta linha (divider) ajuda na separação visual da faixa */}
-      <div className="header-divider"></div> 
-    </div>
+        
+      </div>
+    </header>
   );
 }
 
