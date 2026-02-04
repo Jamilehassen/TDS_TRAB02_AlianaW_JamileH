@@ -31,9 +31,15 @@
     border-radius: 8px;
 }
 
+/* .priceTag {
+    color: var(--primary-color);
+    font-weight: 700;
+    font-size: 1.2rem;
+} */
+
 .specialBadge {
   color: var(--text-light);
-  background-color: var(--accent-color); /* Cor de destaque */
+  background-color: var(--accent-color);
   padding: 4px 8px;
   border-radius: 6px;
   font-size: 0.85em;
