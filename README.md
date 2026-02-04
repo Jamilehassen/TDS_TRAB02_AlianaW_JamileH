@@ -40,43 +40,25 @@ O objetivo deste trabalho foi implementar uma aplicação front-end utilizando R
 
 ## Como Rodar a Aplicação
 
+Siga os passos abaixo para configurar o ambiente de desenvolvimento localmente:
+
 ### Pré-requisitos
-* **Node.js** instalado (v18 ou superior).
+Certifique-se de ter instalado em sua máquina:
+* **Node.js** (versão 18 ou superior recomendada)
 * **npm** ou **yarn**
+* **Git**
 * Recomenda-se o uso de dois terminais abertos simultaneamente.
 
 ### Passo 1: Instalação
 Clone o repositório e instale as dependências necessárias:
 ```bash
 npm install
+```
 
 ### 2. Clonando o Repositório
 ```bash
 git clone https://github.com/Jamilehassen/TDS_TRAB02_AlianaW_JamileH.git
 cd TDS_TRAB02_AlianaW_JamileH
-```
-
-
-Uma excelente forma de mostrar participação em um projeto de grupo é documentar o que foi feito. O README é a porta de entrada do repositório, e commits de documentação são muito valorizados.
-
-Como seu projeto usa Vite (pelo que vi na estrutura dos arquivos .jsx), o processo de execução é bem específico. Aqui está uma sugestão de seção estruturada para você copiar, adaptar e commitar:
-
-Sugestão de Conteúdo para o README.md
-Markdown
-## 🚀 Como Rodar a Aplicação
-
-Siga os passos abaixo para configurar o ambiente de desenvolvimento localmente:
-
-### 1. Pré-requisitos
-Certifique-se de ter instalado em sua máquina:
-* **Node.js** (versão 18 ou superior recomendada)
-* **npm** ou **yarn**
-* **Git**
-
-### 2. Clonando o Repositório
-```bash
-git clone [https://github.com/seu-usuario/nome-do-repositorio.git](https://github.com/seu-usuario/nome-do-repositorio.git)
-cd nome-do-repositorio
 ```
 
 ### 3. Instalando as Dependências
