@@ -49,7 +49,7 @@ Certifique-se de ter instalado em sua máquina:
 * **Git**
 * Recomenda-se o uso de dois terminais abertos simultaneamente.
 
-### Passo 1: Instalação
+### 1: Instalação
 Clone o repositório e instale as dependências necessárias:
 ```bash
 npm install
@@ -67,7 +67,7 @@ Abra o terminal na pasta raiz do projeto e execute:
 npm install
 ```
 
-### Executando o Projeto
+### 4. Executando o Projeto
 Para iniciar o servidor de desenvolvimento:
 ```bash
 npm run dev
