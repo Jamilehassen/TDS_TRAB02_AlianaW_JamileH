@@ -20,7 +20,7 @@ function App() {
       }
   }, [initialReservationCountFromApi]);
 
-  // Função para adicionar item (Uso de Previous State) [cite: 390, 394]
+  // Função para adicionar item (Uso de Previous State) 
   const addItemToCart = (item) => {
     setCartItems((prevItems) => [
       ...prevItems,
@@ -37,7 +37,7 @@ function App() {
     setLastReservationName(name); 
   };
   
-  // REQUISITO: Interpolar Array (Transformando array de objetos em lista de nomes) [cite: 17, 258]
+  // REQUISITO: Interpolar Array (Transformando array de objetos em lista de nomes)
   const listaNomesItens = cartItems.map(item => item.name).join(", ");
 
   return (
@@ -52,7 +52,7 @@ function App() {
         />
       </div>
 
-      {/* CSS Dinâmico Inline baseado em condição [cite: 25, 600] */}
+      {/* CSS Dinâmico Inline baseado em condição*/}
       <p style={{ 
         margin: '15px 0', 
         fontWeight: 'bold', 
