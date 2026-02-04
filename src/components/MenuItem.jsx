@@ -14,7 +14,7 @@ function MenuItem({ item, onAdd, imageSrc }) {
         {isSpecial && <span className={styles.specialBadge}>Especial!</span>}
         <p style={{ color: '#666', fontSize: '0.9em' }}>{description}</p>
         <p>
-          <strong>Preço:</strong> {formattedPrice} 
+          <strong>Preço:</strong> <span className={styles.priceValue}>{formattedPrice}</span> 
         </p>
         <button className={styles.addButton} onClick={() => onAdd(item)}>
           Adicionar

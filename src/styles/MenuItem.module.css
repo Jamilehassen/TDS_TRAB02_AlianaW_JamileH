@@ -48,11 +48,13 @@
     border-radius: 8px;
 }
 
-/* .priceTag {
+.priceValue {
     color: var(--primary-color);
-    font-weight: 700;
-    font-size: 1.2rem;
-} */
+    font-size: 1.1rem;
+    font-weight: 800;
+    display: block;
+    margin-top: 5px;
+}
 
 .specialBadge {
   color: var(--text-light);
