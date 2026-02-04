@@ -16,7 +16,7 @@ function MenuItem({ item, onAdd, imageSrc }) {
         <p>
           <strong>Preço:</strong> {formattedPrice} 
         </p>
-        <button onClick={() => onAdd(item)}>
+        <button className={styles.addButton} onClick={() => onAdd(item)}>
           Adicionar
         </button>
       </div>

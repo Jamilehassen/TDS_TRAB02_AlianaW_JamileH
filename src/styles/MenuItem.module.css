@@ -1,4 +1,21 @@
 .itemCard {
+  .addButton {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s, background-color 0.2s;
+    float: right;
+}
+
+.addButton:hover {
+    background-color: #7a0a35;
+    transform: scale(1.05);
+}
+  
   /* Novo estilo de card mais limpo e moderno */
   border: 1px solid var(--border-color); 
   padding: 20px;
